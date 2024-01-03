@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>SSG Auto Note</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    fieldset {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: inline-block;
+      width: 150px;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: calc(100% - 16px);
+      padding: 8px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      width: 48%;
+      box-sizing: border-box;
+      margin-right: 2%;
+    }
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+      background-color: #45a049;
+    }
+
+    #summary {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>SSG Auto Note</h1>
+
+  <form>
+    <fieldset>
+      <label for="caller"><b>Caller:</b></label>
+      <br>
+      <input type="radio" id="caller_primary" name="caller" value="Primary"> Primary
+      <br>
+      <br>
+      <input type="radio" id="caller_coprimary" name="caller" value="Co Primary"> Co Primary
+      <br>
+      <br>
+      <input type="radio" id="caller_au" name="caller" value="AU"> AU
+      <br>
+      <br>
+      <input type="radio" id="caller_ao" name="caller" value="AO"> AO
+      <br>
+      <br>
+      <input type="radio" id="caller_a3p" name="caller" value="A3P"> A3P
+      <br>
+      <br>
+      <input type="radio" id="caller_poa" name="caller" value="POA"> POA
+      <br>
+      <br>
+      <input type="radio" id="caller_ua3p" name="caller" value="UA3P"> UA3P
+    </fieldset>
+
+    <fieldset>
+      <label for="verified"><b>Verified:</b></label>
+      <br>
+      <input type="radio" id="verified_yes" name="verified" value="Yes"> Yes
+      <br>
+      <br>
+      <input type="radio" id="verified_no" name="verified" value="No"> No
+    </fieldset>
+
+    <fieldset>
+      <label for="type"><b>Call Type:</b></label>
+      <br>
+      <input type="radio" id="type_dispute" name="type" value="Dispute"> Dispute
+      <br>
+      <br>
+      <input type="radio" id="type_hv" name="type" value="HV"> HV
+      <br>
+      <br>
+      <input type="radio" id="type_rem" name="type" value="Rem"> Rem
+      <br>
+      <br>
+      <input type="radio" id="type_merchant" name="type" value="Merchant"> Merchant
+      <br>
+      <br>
+      <input type="radio" id="type_cs" name="type" value="CS Call"> CS Call
+    </fieldset>
+
+    <fieldset>
+      <label for="reason"><b>Reason:</b></label>
+      <br>
+      <input type="radio" id="reason_open" name="reason" value="Open Dispute"> Open Dispute
+      <br>
+      <br>
+      <input type="radio" id="reason_followup" name="reason" value="Follow up Dispute"> Follow up Dispute
+      <br>
+      <br>
+      <input type="radio" id="reason_cancel" name="reason" value="Cancel Dispute"> Cancel Dispute
+      <br>
+      <br>
+      <input type="radio" id="reason_status" name="reason" value="Account Status"> Account Status'
+      <br>
+      <br>
+      <input type="radio" id="reason_billing" name="reason" value="Billing Inquiry"> Billing Inquiry
+      <br>
+      <br>
+      <input type="radio" id="reason_card" name="reason" value="Card Request"> Card Request
+      <br>
+      <br>
+      <input type="radio" id="reason_advance" name="reason" value="Cash Advance"> Cash Advance
+      <br>
+      <br>
+      <input type="radio" id="reason_cli" name="reason" value="CLI"> CLI
+      <br>
+      <br>
+      <input type="radio" id="reason_deadair" name="reason" value="Dead air"> Dead air
+      <br>
+      <br>
+      <input type="radio" id="reason_eservice" name="reason" value="eservice"> eservice
+      <br>
+      <br>
+      <input type="radio" id="reason_payment" name="reason" value="Payment Concern"> Payment Concern
+      <br>
+      <br>
+      <input type="radio" id="reason_promo" name="reason" value="Promo Concern"> Promo Concern
+      <br>
+      <br>
+      <input type="radio" id="reason_statement" name="reason" value="Statement Concern"> Statement Concern
+    </fieldset>
+
+    <fieldset>
+      <label for="proc"><b>Proc ID:</b></label>
+      <input type="text" id="proc" name="proc" value="">
+    </fieldset>
+
+    <fieldset>
+      <label for="addtnote"><b>Additional Note:</b></label>
+      <textarea name="addtnote" id="addtnote" rows="10" cols="30"></textarea>
+    </fieldset>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+      <input type="submit" value="Submit" onclick="showSummary(); return false">
+      <input type="reset" value="Reset">
+    </div>
+  </form>
+
+  <script>
+    function showSummary() {
+      var callerValue = document.querySelector('input[name="caller"]:checked');
+      var verifiedValue = document.querySelector('input[name="verified"]:checked');
+      var typeValue = document.querySelector('input[name="type"]:checked');
+      var reasonValue = document.querySelector('input[name="reason"]:checked');
+      var procValue = document.getElementById('proc').value;
+      var additionalNoteValue = document.getElementById('addtnote').value;
+
+      var summary = `
+        <h2>Summary:</h2>
+        <p><b>Caller:</b> ${callerValue ? callerValue.value : 'Not selected'}</p>
+        <p><b>Verified:</b> ${verifiedValue ? verifiedValue.value : 'Not selected'}</p>
+        <p><b>Call Type:</b> ${typeValue ? typeValue.value : 'Not selected'}</p>
+        <p><b>Reason:</b> ${reasonValue ? reasonValue.value : 'Not selected'}</p>
+        <p><b>Proc ID:</b> ${procValue}</p>
+        <p><b>Additional Note:</b> ${additionalNoteValue}</p>
+      `;
+
+      var summaryWindow = window.open('', '_blank');
+      summaryWindow.document.write('<html><head><title>Summary</title></head><body>' + summary + '</body></html>');
+      summaryWindow.document.close();
+    }
+  </script>
+</body>
+
+</html>
